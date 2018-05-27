@@ -1,0 +1,64 @@
+-------------------- test35-merge-rm-conflicts.in --------------------
+# Create two branches and merge other into master with a conflict caused by
+# a file changed in one and removed in the other.
+I setup2.inc
+> branch other
+<<<
++ h.txt wug2.txt
+> add h.txt
+<<<
+> rm g.txt
+<<<
++ f.txt wug2.txt
+> add f.txt
+<<<
+> commit "Add h.txt, remove g.txt, and change f.txt"
+<<<
+> checkout other
+<<<
+> rm f.txt
+<<<
++ k.txt wug3.txt
+> add k.txt
+<<<
+> commit "Add k.txt and remove f.txt"
+24. <<<
+25. > checkout master
+26. <<<
+27. > log
+28. ===
+29. ${COMMIT_HEAD}
+30. ${ARBLINES}
+31. <<<*
+32. D MASTER_HEAD "${1}"
+33. > merge other
+34. Encountered a merge conflict.
+35. <<<
+36. * g.txt
+37. = h.txt wug2.txt
+38. = k.txt wug3.txt
+39. = f.txt conflict2.txt
+40. > log
+41. ${COMMIT_LOG}
+42. ===
+43. commit ${MASTER_HEAD}
+44. ${ARBLINES}
+45. <<<*
+46. > status
+47. === Branches ===
+48. \*master
+49. other
+50. 
+51. === Staged Files ===
+52. 
+53. === Removed Files ===
+54. 
+55. === Modifications Not Staged For Commit ===
+56. 
+57. === Untracked Files ===
+58. 
+59. <<<*
+60. 
+
+
+

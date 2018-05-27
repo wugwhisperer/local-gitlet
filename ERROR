@@ -1,0 +1,1 @@
+Not passing integration tests that run checkout master, such as test30-branches.in, but results is as expected if ran commands in local machine
